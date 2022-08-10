@@ -7,9 +7,9 @@ using namespace std;
 
 struct bag {
 	int w, v;
-}bagInfo[101];
+};
 
-int dp[101][MAX] = { 0 };
+int dp[MAX] = { 0 };
 
 int main() {
 
@@ -20,6 +20,7 @@ int main() {
 	int n, k;
 	cin >> n >> k;
 
+	bag bagInfo[101];
 	int i, j;
 
 	for (i = 1; i <= n; i++) {
@@ -27,15 +28,14 @@ int main() {
 	}
 
 	for (i = 1; i <= n; i++) {
-		for (j = 1; j <= k; j++) {
-			dp[i][j] = dp[i - 1][j];
-			if (j - bagInfo[i].w >= 0) {
-				dp[i][j] = max(dp[i - 1][j - bagInfo[i].w] + bagInfo[i].v , dp[i][j]);
-			}
+		for (j = k ; j >= bagInfo[i].w; j--) {
+				dp[j] = max(dp[j - bagInfo[i].w] + bagInfo[i].v, dp[j]);
 		}
 	}
 
-	cout << dp[n][k];
+	cout << dp[k];
 
 	return 0;
 }
+
+//https://wlshddlek.tistory.com/67
