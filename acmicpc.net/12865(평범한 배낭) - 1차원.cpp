@@ -28,9 +28,21 @@ int main() {
 	}
 
 	for (i = 1; i <= n; i++) {
-		for (j = k ; j >= bagInfo[i].w; j--) {
-				dp[j] = max(dp[j - bagInfo[i].w] + bagInfo[i].v, dp[j]);
+		/*for (j = bagInfo[i].w; j <= k; j++) {
+			dp[j] = max(dp[j - bagInfo[i].w] + bagInfo[i].v, dp[j]);
+		}*/
+
+		for (j = k; j >= bagInfo[i].w; j--) {
+			dp[j] = max(dp[j - bagInfo[i].w] + bagInfo[i].v, dp[j]);
 		}
+		// j >= bagInfo[i].w+1을 못하는 것은 자기 자신을 반영하기 위해서다. 
+
+
+		/*for (j = 1; j <= k; j++) {
+			cout << dp[j] << ' ';
+		}
+
+		cout << '\n';*/
 	}
 
 	cout << dp[k];
@@ -38,4 +50,7 @@ int main() {
 	return 0;
 }
 
-//https://wlshddlek.tistory.com/67
+
+//2 10
+//2 7
+//7 9
