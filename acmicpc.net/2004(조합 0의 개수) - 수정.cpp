@@ -5,24 +5,24 @@ using namespace std;
 
 int pow2Check(int num) {
 
-	int sum = 0;
+	int cnt = 0;
 
-	for (long long i = 2; i <= num; i*=2) {
-		sum += num/i;
+	for (long i = 2; i <= num; i *= 2) { // long , long long 둘 다 8byte 취급 됨. i값이 int 범위를 벗어날 조건에 안 맞는 경우 생각. 
+		cnt += num / i;
 	}
 
-	return sum;
+	return cnt;
 }
 
 int pow5Check(int num) {
 
-	int sum = 0;
+	int cnt = 0;
 
-	for (long long i = 5; i <= num; i *= 5) {
-		sum += num / i;
+	for (long i = 5; i <= num; i *= 5) {
+		cnt += num / i;
 	}
 
-	return sum;
+	return cnt;
 
 }
 
@@ -47,7 +47,7 @@ int main()
 	cin >> n >> m;
 
 	cout << zeroCheck(n, m);
-	
+
 	return 0;
 
 }
