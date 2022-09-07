@@ -1,8 +1,11 @@
 #include <iostream>
-#define MOD 1000000009
+
 using namespace std;
 
-unsigned long long dp[1000001] = { 0,1,2,4 };
+#define MOD (int)(1e9+9) // 괄호 묶어야함
+#define MAX (int)1e6
+
+unsigned long long dp[MAX+1] = {0,1,2,4};
 
 int main() {
 
@@ -12,7 +15,7 @@ int main() {
 
 	int n, i, num;
 
-	for (i = 4; i <= 1000000; i++)
+	for (i = 4; i <= MAX; i++)
 	{
 		dp[i] = (dp[i - 1] + dp[i - 2] + dp[i - 3]) % MOD;
 	}
@@ -22,7 +25,7 @@ int main() {
 	for (i = 0; i < n; i++)
 	{
 		cin >> num;
-		cout << dp[num] % MOD << '\n';
+		cout << dp[num] << '\n';
 	}
 
 	return 0;

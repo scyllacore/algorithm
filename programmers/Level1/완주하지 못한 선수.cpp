@@ -12,6 +12,43 @@ string solution(vector<string> participant, vector<string> completion) {
     int i; 
     
     for(i=0; i<size; i++){
+        partSet[participant[i]]++;  
+    }
+    
+    size = completion.size();
+    
+    for(i=0; i<size; i++){
+          partSet[completion[i]]--;
+    }
+    
+     string answer = "";
+    
+    for(auto ptr : partSet){ 
+        if(ptr.second != 0){ 
+            answer = (ptr.first);
+            break;
+        }
+    }
+        
+  
+    return answer;
+}
+
+/*
+#include <string>
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
+
+string solution(vector<string> participant, vector<string> completion) {
+    
+    unordered_map<string,int> partSet;
+      
+    int size = participant.size();
+    int i; 
+    
+    for(i=0; i<size; i++){
         if(partSet.find(participant[i]) == partSet.end()){
             partSet.insert({participant[i],1});
         }
@@ -41,3 +78,4 @@ string solution(vector<string> participant, vector<string> completion) {
   
     return answer;
 }
+*/

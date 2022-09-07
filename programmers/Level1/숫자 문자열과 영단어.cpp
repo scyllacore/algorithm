@@ -1,5 +1,55 @@
 #include <string>
 #include <vector>
+#include <cctype>
+
+using namespace std;
+
+int solution(string s) {
+    
+    string numWord[10] ={"zero","one","two","three","four","five","six","seven","eight","nine"};
+    string answer;
+    
+    
+    for(int i=0; i<s.length();){
+        if(isdigit(s[i])){
+            answer+=s[i++];
+        }
+        else{
+            for(int j=0; j<10; j++){
+                if(!s.compare(i,numWord[j].length(),numWord[j],0,numWord[j].length())){
+                    //(s 시작점 , s 길이 , 비교할 대상 , 비교할 대상 시작점 , 비교할 대상 길이)
+                    answer+= (j+'0');
+                    i += numWord[j].length();
+                    break;
+                }
+            }
+        }
+    }
+    
+    return stoi(answer);
+    
+}
+
+/*
+for(int i=0; i<s.length();){
+        if(isdigit(s[i])){
+            answer+=s[i++];
+        }
+        else{
+            for(int j=0; j<10; j++){
+                if(s.find(numWord[j],i)!=string::npos){
+                    answer+= (j+'0');
+                    i += numWord[j].length();
+                    break;
+                }
+            }
+        }
+    }
+*/
+
+/*
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -58,3 +108,4 @@ int solution(string s) {
     
     return answer;
 }
+*/

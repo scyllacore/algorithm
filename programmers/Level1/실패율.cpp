@@ -10,11 +10,11 @@ struct userPercent{
 };
 
 bool cmp(const userPercent& u1 ,const userPercent& u2){
-    if(u1.percent != u2.percent){
-        return u1.percent > u2.percent;
+    if(u1.percent == u2.percent){
+        return u1.idx < u2.idx;
     }
     else{
-        return u1.idx < u2.idx;
+        return u1.percent > u2.percent;
     }
 }
 
