@@ -23,10 +23,10 @@ int main() {
 	dp.push_back(arr[n]);
 
 
-	for (i = n-1; i >= 1; i--) { // 거꾸로 탐색해서 감소효과를 줌
+	for (i = n - 1; i >= 1; i--) { // 거꾸로 탐색해서 감소효과를 줌
 		idx = lower_bound(dp.begin(), dp.end(), arr[i]) - dp.begin();
 
-		if (idx + 1 > dp.size()) {
+		if (idx >= dp.size()) {
 			dp.push_back(arr[i]);
 		}
 		else {
