@@ -1,0 +1,78 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+void quickSort(int arr[], int low, int high) {
+
+	if (low >= high) {
+		return;
+	}
+
+	int i = low, j, pivot = arr[high]; // i,j=0 -> low로 변경
+
+	for (j = low; j < high; j++) {
+		if (arr[j] < pivot) {
+			swap(arr[i], arr[j]);
+			i++;
+		}
+	}
+
+	swap(arr[i], arr[high]);
+
+	quickSort(arr, low, i - 1);
+	quickSort(arr, i + 1, high);
+
+}
+
+
+bool binarySearch(int arr[], int target) {
+
+	int low = 0, high = 10, mid;
+
+	while (low <= high) {
+		mid = (low + high) / 2;
+
+		cout << mid << ' ';
+
+		if (arr[mid] == target) {
+			cout << '\n';
+			return 1;
+		}
+
+		if (target < arr[mid]) {
+			high = mid - 1;
+		}
+		else {
+			low = mid + 1;
+		}
+
+	}
+
+	cout << '\n';
+	return 0;
+
+}
+
+
+int main() {
+
+	cin.tie(NULL);
+	cout.tie(NULL);
+	ios::sync_with_stdio(false);
+
+	int arr[11] = { 2,1,6,5,100,3,7,8,4,10,9 };
+	int i, n = 11;
+
+	quickSort(arr, 0, n - 1);
+
+	for (i = 0; i < 11; i++) {
+		cout << arr[i] << ' ';
+	}
+
+	cout << '\n';
+
+	cout << binarySearch(arr, 5);
+
+
+}

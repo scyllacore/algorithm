@@ -1,0 +1,37 @@
+#include <iostream>
+#include <map>
+#include <sstream>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+
+	cin.tie(NULL);
+	cout.tie(NULL);
+	ios::sync_with_stdio(false);
+
+	for (;;) {
+
+		string str;
+		
+		getline(cin,str);
+		
+		if (str == "END") return 0;
+
+		istringstream iss(str);
+		map<string, int> wordInfo;
+
+		string word;
+		for (; getline(iss, word, ' ');) {
+			wordInfo[word]++;
+		}
+
+		for (auto wi : wordInfo) {
+			cout << wi.first << " : " << wi.second << '\n';
+		}
+		//https://www.cplusplus.com/reference/map/map/operator[]/
+	}
+
+
+}

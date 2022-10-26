@@ -1,0 +1,329 @@
+1.
+
+
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <sstream>
+#include <iostream>
+
+using namespace std;
+
+struct pInfo{
+    string info;
+    int score;
+};
+
+vector<int> solution(vector<string> info, vector<string> query) {
+      
+    unordered_map<pInfo,int> pList;    
+        
+    int i;
+    string tmpLang,tmpDev,tmpLev,tmpFood,tmpScore;  
+    
+    for(i=0; i<info.size(); i++){
+        istringstream iss(info[i]);
+        iss >> tmpLang >> tmpDev >> tmpLev >> tmpFood >> tmpScore;
+        pList[{tmpLang+tmpDev+tmpLev,stoi(tmpScore)}] = 0;
+    }
+    
+    for(auto iter : pList){
+        cout << iter.first << ' ';
+        cout << iter.second << '\n';
+    }
+    
+    vector<int> answer(1,1);
+    return answer;
+}
+
+
+2.
+
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <sstream>
+#include <iostream>
+#include <cctype>
+
+using namespace std;
+
+struct pInfo{
+    int score;
+    int cnt;
+};
+
+vector<int> solution(vector<string> info, vector<string> query) {
+      
+    unordered_map<string,pInfo> pList;    
+        
+    int i,j;
+    string tmpLang,tmpDev,tmpLev,tmpFood,tmpScore;  
+    
+    for(i=0; i<info.size(); i++){
+        istringstream iss(info[i]);
+        iss >> tmpLang >> tmpDev >> tmpLev >> tmpFood >> tmpScore;
+        pList[tmpLang+tmpDev+tmpLev] = {stoi(tmpScore),0};
+    }
+    
+    for(auto iter : pList){
+        cout << iter.first << ' ';
+        cout << iter.second.score << ' ' << iter.second.cnt << '\n';
+    }
+    
+    string tmp;
+    int sum;
+    
+    for(i=0; i<query.size(); i++){
+        tmp = ""; 
+        for(j=0; j<query[i].size(); j++){
+            if(query[i][j]!= ' ' || ){
+                tmp += query[i][j];
+            }
+            else if(query[i][j]==' '){
+                if(query[i][j+1]== 'a'){ j+=4;}
+                else if(query[i][j+1]== '-'){
+                    
+                }
+            }
+        }
+        
+        sum=0;
+        
+        for(j=query[i].size()-3; j<query[i].size(); j++){
+            if(isdigit(query[i][j])){
+                sum = sum*10 + (query[i][j] - '0');
+            }
+        }    
+        
+        cout << tmp << ' ' << sum << '\n';
+        
+    }
+    
+    
+    vector<int> answer(1,1);
+    return answer;
+}
+
+
+3.#include <string>
+#include <vector>
+#include <map>
+#include <sstream>
+#include <iostream>
+
+using namespace std;
+
+struct pInfo{
+    string lang,dev,lev,food;
+    
+};
+
+struct cmp{  
+     bool operator () (const pInfo& p1,const pInfo& p2) const {
+        if (p1.lang != p2.lang){
+            return p1.lang < p2.lang;
+        }
+        else if (p1.dev != p2.dev){
+            return p1.dev < p2.dev;
+        }
+        else if (p1.lev != p2.lev){
+            return p1.lev < p2.lev;
+        }
+        else if (p1.food != p2.food){
+            return p1.food < p2.food;
+        }
+    }
+};
+
+
+vector<int> solution(vector<string> info, vector<string> query) {
+    
+    map<pInfo,int,cmp> pList;    
+    
+    int i;
+    string tmpLang,tmpDev,tmpLev,tmpFood,tmpScore;  
+    
+    for(i=0; i<info.size(); i++){
+        istringstream iss(info[i]);
+        iss >> tmpLang >> tmpDev >> tmpLev >> tmpFood >> tmpScore;
+        pList[{tmpLang,tmpDev,tmpLev,tmpFood}] = stoi(tmpScore);
+    }
+    
+      for(auto iter : pList){
+        cout << iter.first.lang << ' ';
+        cout << iter.second << '\n';
+    }
+    
+    vector<int> answer;
+    return answer;
+}
+
+
+4.
+#include <string>
+#include <vector>
+#include <map>
+#include <sstream>
+#include <iostream>
+
+using namespace std;
+
+struct pInfo{
+    string lang,dev,lev,food;
+    
+};
+
+struct cmp{  
+     bool operator () (const pInfo& p1,const pInfo& p2) const {
+        if (p1.lang != p2.lang){
+            return p1.lang < p2.lang;
+        }
+        else if (p1.dev != p2.dev){
+            return p1.dev < p2.dev;
+        }
+        else if (p1.lev != p2.lev){
+            return p1.lev < p2.lev;
+        }
+        else if (p1.food != p2.food){
+            return p1.food < p2.food;
+        }
+    }
+};
+
+
+vector<int> solution(vector<string> info, vector<string> query) {
+    
+    map<pInfo,int,cmp> pList;    
+    
+    int i,j;
+    string tmpLang,tmpDev,tmpLev,tmpFood,tmpScore;  
+    
+    for(i=0; i<info.size(); i++){
+        istringstream iss(info[i]);
+        iss >> tmpLang >> tmpDev >> tmpLev >> tmpFood >> tmpScore;
+        pList[{tmpLang,tmpDev,tmpLev,tmpFood}] = stoi(tmpScore);
+    }
+    
+    vector<int> answer;
+    
+    for(i=0; i<query.size(); i++){
+         vector<string> p;
+         string tmp ="";
+         int sum = 0;
+        
+        answer.push_back(0);
+        
+        for(j=0; j<query[i].size(); j++){
+            if(query[i][j]!= ' '){
+                tmp += query[i][j];
+            }
+            else if(query[i][j]==' '){
+                
+                p.push_back(tmp);
+                if(query[i][j+1]== 'a'){ j+=4;}
+                tmp="";
+            }
+        }
+        
+        for(auto iter:p){
+            cout << iter << ' ';
+        }
+        
+        for(j=query[i].size()-3; j<query[i].size(); j++){
+            if(isdigit(query[i][j])){
+                sum = sum*10 + (query[i][j] - '0');
+            }
+        }      
+        cout << sum << '\n';
+        
+    }
+    
+    
+    return answer;
+}
+
+5.#include <string>
+#include <vector>
+#include <map>
+#include <sstream>
+#include <iostream>
+
+using namespace std;
+
+struct pInfo{
+    string lang,dev,lev,food;
+    
+};
+
+struct cmp{  
+     bool operator () (const pInfo& p1,const pInfo& p2) const {
+        if (p1.lang != p2.lang){
+            return p1.lang < p2.lang;
+        }
+        else if (p1.dev != p2.dev){
+            return p1.dev < p2.dev;
+        }
+        else if (p1.lev != p2.lev){
+            return p1.lev < p2.lev;
+        }
+        else if (p1.food != p2.food){
+            return p1.food < p2.food;
+        }
+    }
+};
+
+
+vector<int> solution(vector<string> info, vector<string> query) {
+    
+    map<pInfo,int,cmp> pList;    
+    
+    int i,j;
+    string tmpLang,tmpDev,tmpLev,tmpFood,tmpScore;  
+    
+    for(i=0; i<info.size(); i++){
+        istringstream iss(info[i]);
+        iss >> tmpLang >> tmpDev >> tmpLev >> tmpFood >> tmpScore;
+        pList[{tmpLang,tmpDev,tmpLev,tmpFood}] = stoi(tmpScore);
+    }
+    
+    vector<int> answer;
+    
+    for(i=0; i<query.size(); i++){
+         vector<string> p;
+         string tmp ="";
+         int sum = 0;
+        
+        answer.push_back(0);
+        
+        for(j=0; j<query[i].size(); j++){
+            if(query[i][j]!= ' '){
+                tmp += query[i][j];
+            }
+            else if(query[i][j]==' '){
+                
+                p.push_back(tmp);
+                if(query[i][j+1]== 'a'){ j+=4;}
+                tmp="";
+            }
+        }
+
+        for(j=query[i].size()-3; j<query[i].size(); j++){
+            if(isdigit(query[i][j])){
+                sum = sum*10 + (query[i][j] - '0');
+            }
+        }  
+        
+        bool flag=1;
+        
+        for(j=0; j<4; j++){
+           for(auto iter:pList){
+               if(iter.)
+           } 
+        }
+        
+    }
+    
+    
+    return answer;
+}

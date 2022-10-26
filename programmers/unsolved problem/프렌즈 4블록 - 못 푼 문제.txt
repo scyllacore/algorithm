@@ -1,0 +1,153 @@
+1.
+
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+#include <iostream>
+
+using namespace std;
+
+int solution(int m, int n, vector<string> b) {
+    int answer = 0;
+    int delCnt,i,j;
+    vector<string> board;
+    
+     for(i=0; i<n; i++){
+         board.push_back("");
+          for(j=0; j<m; j++){
+               board[i].push_back(b[m-1-j][i]);
+          }
+      } 
+
+    int loop=0;
+    
+    do{
+      unordered_map<int,int> iconDelPos;   
+      delCnt = 0;
+        
+      for(i=0; i<board.size()-1; i++){
+          for(j=0; j<board[i].size()-1; j++){
+              if(j+1<board[i+1].size()){
+                  if(board[i][j] == board[i][j+1] && board[i][j] == board[i+1][j] && board[i][j] == board[i+1][j+1]){
+                      iconDelPos[i*29+j] = 1;
+                      iconDelPos[i*29+(j+1)] = 1;
+                      iconDelPos[(i+1)*29+j] = 1;
+                      iconDelPos[(i+1)*29+(j+1)] = 1;             
+                  }
+              }
+          }
+      }  
+      
+      for(auto delPos : iconDelPos){
+          board[delPos.first/29].erase(board[delPos.first/29].begin()+(delPos.first%29));
+          delCnt++; 
+      } 
+        
+      answer += delCnt;  
+      loop++;  
+        
+        for(i=0; i<board.size(); i++){
+          for(j=0; j<board[i].size(); j++){
+               cout << board[i][j];
+          }
+       cout << '\n';
+    }    
+        
+    }while(loop<1);
+    
+
+      unordered_map<int,int> iconDelPos;   
+      delCnt = 0;
+        
+      for(i=0; i<board.size()-1; i++){
+          for(j=0; j<board[i].size()-1; j++){
+              if(j+1<board[i+1].size()){
+                  if(board[i][j] == board[i][j+1] && board[i][j] == board[i+1][j] && board[i][j] == board[i+1][j+1]){
+                      iconDelPos[i*29+j] = 1;
+                      iconDelPos[i*29+(j+1)] = 1;
+                      iconDelPos[(i+1)*29+j] = 1;
+                      iconDelPos[(i+1)*29+(j+1)] = 1;             
+                  }
+              }
+          }
+      }  
+
+    
+     for(auto delPos : iconDelPos){
+         cout << delPos.first/29 << ' ' << delPos.first%29 << '\n';
+      } 
+    
+    return answer;
+}
+
+// 하나씩 지워서 나오는 문제. 한꺼번에 지워야 문제가 없음.
+// erase 쓸 때 주의해서 쓰기. 하나씩 지우기 때문에 지우자마다 크기가 바뀜.
+
+3.
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+#include <iostream>
+
+using namespace std;
+
+int solution(int m, int n, vector<string> b) {
+    int answer = 0;
+    int i,j;
+    vector<string> board;
+    
+     for(i=0; i<n; i++){
+         board.push_back("");
+          for(j=0; j<m; j++){
+               board[i].push_back(b[m-1-j][i]);
+          }
+      } 
+
+    unordered_map<int,int> iconDelPos;    
+    
+    do{  
+      iconDelPos.clear(); 
+      int rowSize = board.size()-1,colSize;  
+        
+      for(i=0; i<rowSize; i++){
+          colSize = board[i].size()-1;
+          for(j=0; j<colSize; j++){
+              if(j+1<board[i+1].size()){
+                  if(board[i][j] == board[i][j+1] && board[i][j] == board[i+1][j] && board[i][j] == board[i+1][j+1]){
+                      iconDelPos[i*29+j] = 1;
+                      iconDelPos[i*29+(j+1)] = 1;
+                      iconDelPos[(i+1)*29+j] = 1;
+                      iconDelPos[(i+1)*29+(j+1)] = 1;             
+                  }
+              }
+          }
+      }  
+             
+      answer += iconDelPos.size();
+      
+      for(auto delPos : iconDelPos){
+          board[delPos.first/29][delPos.first%29] = 1; 
+      } 
+        
+      string tmp;
+      for(i=0; i<board.size(); i++){
+          tmp = "";
+          for(j=0; j<board[i].size(); j++){
+              if(board[i][j] != 1){
+                  tmp.push_back(board[i][j]);
+              }
+          }
+        board[i] = tmp;
+      }
+        
+        
+    }while(!iconDelPos.empty());
+    
+    return answer;
+}
+
+// 29로 나누는게 아니라 30으로 나눠야 됨.
+// size()-1 주의 할 것.
+// 배열 회전 시키는 것 연습 할 것

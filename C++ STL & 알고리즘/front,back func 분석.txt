@@ -1,0 +1,108 @@
+#include <iostream>
+#include <queue>
+#include <vector>
+#include <functional>
+#include <deque>
+
+using namespace std;
+
+int main() {
+
+	cin.tie(NULL);
+	cout.tie(NULL);
+	ios::sync_with_stdio(false);
+
+
+	//일반 배열
+	int arr[5] = { 3,1,2,5,4 };
+	sort(arr, arr + 5, less<>());
+	
+	for (int i = 0; i < 5; i++) {
+		cout << arr[i] << ' ';
+	}
+	cout << '\n';
+
+
+	//heap기반 우선 순위 큐
+	priority_queue<int, vector<int>, less<int>> pq;
+
+	pq.push(3);
+	pq.push(1);
+	pq.push(2);
+	pq.push(5);
+	pq.push(4);
+
+	while (!pq.empty()) {
+		cout << pq.top() << ' ';
+		pq.pop();
+	}
+
+	cout << '\n';
+
+
+	//vector
+	vector<int> v;
+
+	v.push_back(1);
+	v.push_back(2);
+	v.push_back(3);
+
+	for (int i = 0; i < v.size(); i++) {
+		cout << v[i] << ' ';
+	}
+	
+	cout << "\\ ";
+
+	while (!v.empty()) {
+		cout << v.back() << ' ';
+		v.pop_back();
+	}
+
+	cout << '\n';
+
+	//deque
+
+	deque<int> dq;
+
+	dq.push_back(1);
+	dq.push_back(2);
+	dq.push_back(3);
+
+	for (auto ptr = dq.begin(); ptr < dq.end(); ptr++) {
+		cout << *ptr << ' ';
+	}
+
+	dq.push_front(1);
+	dq.push_front(2);
+	dq.push_front(3);
+
+	cout << "\\ ";
+
+	for (auto ptr = dq.begin(); ptr < dq.end(); ptr++) {
+		cout << *ptr << ' ';
+	}
+
+
+	dq.pop_front();
+
+	cout << "\\ ";
+
+
+	for (auto ptr = dq.begin(); ptr < dq.end(); ptr++) {
+		cout << *ptr << ' ';
+	}
+	
+	dq.pop_back();
+
+	cout << "\\ ";
+
+
+	for (auto ptr = dq.begin(); ptr < dq.end(); ptr++) {
+		cout << *ptr << ' ';
+	}
+
+
+	return 0;
+}
+
+

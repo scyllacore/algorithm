@@ -1,0 +1,375 @@
+1. pq 썻을 때
+
+#include <iostream>
+#include <vector>
+#include <queue>
+
+#define MAX_IDX 20
+#define MAX_DIST 400
+
+using namespace std;
+
+int n;
+int mapNN[21][21];
+bool visited[21][21];
+
+int dy[4] = { -1,0,1,0 };
+int dx[4] = { 0,-1,0,1 };
+
+struct pos {
+	int y, x,t;
+};
+
+struct cmp {
+	bool operator()(const pos& p1, const pos& p2) {
+		
+		if (p1.t == p2.t) {
+			if (p1.y == p2.y) {
+				return p1.x > p2.x;
+			}
+			else {
+				return p1.y > p2.y;
+			}
+		}
+		else {
+			return p1.t > p2.t;
+		}
+
+	}
+};
+
+
+int BFS(int y, int x, int moveCnt, int eat, int sharkLev) {
+
+	queue<pos> bfsQ;
+	bfsQ.push({ y,x ,0 });
+	visited[y][x] = 1;
+
+	int i,j;
+	int curY, curX,curT;
+	int nextY, nextX;
+
+	while (1) {
+
+		priority_queue<pos, vector<pos>, cmp> pQ;
+
+		while (!bfsQ.empty()) {
+			curY = bfsQ.front().y;
+			curX = bfsQ.front().x;
+			curT = bfsQ.front().t;
+			bfsQ.pop();
+
+			for (i = 0; i < 4; i++) {
+				nextY = curY + dy[i];
+				nextX = curX + dx[i];
+
+				if (nextY < 1 || nextY > n || nextX < 1 || nextX > n) { continue; }
+				if (mapNN[nextY][nextX] > sharkLev || visited[nextY][nextX]) { continue; }
+			
+				bfsQ.push({ nextY,nextX,curT + 1 });
+				visited[nextY][nextX] = 1;
+
+				if(mapNN[nextY][nextX] < sharkLev && mapNN[nextY][nextX] >0){
+					pQ.push({ nextY,nextX, curT + 1 });
+				}
+
+			
+			}
+		}
+
+		for (i = 1; i <= n; i++) {
+			fill_n(visited[i], n + 1, 0);
+		}
+
+
+		if (!pQ.empty()) {
+			curY = pQ.top().y;
+			curX = pQ.top().x;
+			curT = pQ.top().t;
+			pQ.pop();
+
+			mapNN[curY][curX] = 0;
+
+			eat++;
+			moveCnt = curT;
+
+			cout << curY << ' ' << curX << ' ' << curT << '\n';
+			bfsQ.push({ curY,curX,curT });
+			visited[curY][curX] = 1;
+		}
+		else {
+			break;
+		}
+
+		if (eat == sharkLev) {
+			sharkLev++;
+			eat = 0;
+		}
+
+	}
+
+	return moveCnt;
+
+}
+
+int main() {
+
+	cin.tie(NULL);
+	cout.tie(NULL);
+	ios::sync_with_stdio(false);
+
+	cin >> n;
+
+	int i, j;
+	int y = 1, x = 1;
+
+	for (i = 1; i <= n; i++) {
+		for (j = 1; j <= n; j++) {
+			cin >> mapNN[i][j];
+
+			if (mapNN[i][j] == 9) {
+				y = i, x = j;
+				mapNN[y][x] = 0;
+			}
+
+		}
+	}
+
+	cout << BFS(y, x, 0, 0, 2);
+
+	
+
+	return 0;
+
+}
+4 2 2
+5 3 4
+4 3 5
+2 3 7
+1 4 9
+1 3 10
+1 5 12 ->거리가 똑같지만 조건에 맞게 잘 접근.
+2 4 14
+2 2 16
+1 2 17
+2 1 19
+3 1 20
+3 2 21
+4 1 23
+5 1 24
+5 2 25
+4 4 28
+3 4 29
+2 5 31
+2 6 32
+1 6 33
+3 6 35
+3 5 36
+4 5 37
+4 6 38
+5 6 39
+5 5 40
+5 4 41
+6 4 42
+6 3 43
+6 2 44
+6 1 45
+6 5 49
+6 6 50
+1 1 60
+60
+
+
+2.  pq안 썼을 때
+
+#include <iostream>
+#include <vector>
+#include <queue>
+
+#define MAX_IDX 20
+#define MAX_DIST 400
+
+using namespace std;
+
+int n;
+int mapNN[21][21];
+bool visited[21][21];
+
+int dy[4] = { -1,0,0,1 };
+int dx[4] = { 0,-1,1,0 };
+
+struct pos {
+	int y, x,t;
+};
+
+struct cmp {
+	bool operator()(const pos& p1, const pos& p2) {
+		
+		if (p1.t == p2.t) {
+			if (p1.y == p2.y) {
+				return p1.x > p2.x;
+			}
+			else {
+				return p1.y > p2.y;
+			}
+		}
+		else {
+			return p1.t > p2.t;
+		}
+
+	}
+};
+
+
+int BFS(int y, int x, int moveCnt, int eat, int sharkLev) {
+
+
+
+	int i;
+	int curY, curX,curT;
+	int nextY, nextX;
+
+	int t=0;
+
+	while (1) {
+
+		//priority_queue<pos, vector<pos>, cmp> pQ;
+
+		queue<pos> bfsQ;
+		bfsQ.push({ y,x ,t });
+		visited[y][x] = 1;
+
+		queue<pos> pQ;
+		bool flag = 0;
+
+		while (!bfsQ.empty()) {
+			curY = bfsQ.front().y;
+			curX = bfsQ.front().x;
+			curT = bfsQ.front().t;
+			bfsQ.pop();
+
+			for (i = 0; i < 4; i++) {
+				nextY = curY + dy[i];
+				nextX = curX + dx[i];
+
+				if (nextY < 1 || nextY > n || nextX < 1 || nextX > n) { continue; }
+				if (mapNN[nextY][nextX] > sharkLev || visited[nextY][nextX]) { continue; }
+			
+				bfsQ.push({ nextY,nextX,curT + 1 });
+				visited[nextY][nextX] = 1;
+
+				if (mapNN[nextY][nextX] < sharkLev && mapNN[nextY][nextX] >0) {
+					pQ.push({ nextY,nextX, curT + 1 });
+					flag = 1;
+					break;
+				}
+			
+			}
+
+			if (flag == 1) break;
+
+		}
+
+		for (i = 1; i <= n; i++) {
+			fill_n(visited[i], n + 1, 0);
+		}
+
+
+		if (!pQ.empty()) {
+
+			curY = pQ.front().y;
+			curX = pQ.front().x;
+			curT = pQ.front().t;
+			cout << curY << ' ' << curX << ' ' << curT << '\n';
+
+			mapNN[curY][curX] = 0;
+
+			eat++;
+			moveCnt = t = curT;
+
+			y= curY, x=curX;
+			visited[curY][curX] = 1;
+		}
+		else {
+			break;
+		}
+
+		if (eat == sharkLev) {
+			sharkLev++;
+			eat = 0;
+		}
+
+	}
+
+	return moveCnt;
+
+}
+
+int main() {
+
+	cin.tie(NULL);
+	cout.tie(NULL);
+	ios::sync_with_stdio(false);
+
+	cin >> n;
+
+	int i, j;
+	int y = 1, x = 1;
+
+	for (i = 1; i <= n; i++) {
+		for (j = 1; j <= n; j++) {
+			cin >> mapNN[i][j];
+
+			if (mapNN[i][j] == 9) {
+				y = i, x = j;
+				mapNN[y][x] = 0;
+			}
+
+		}
+	}
+
+	cout << BFS(y, x, 0, 0, 2);
+
+	
+
+	return 0;
+
+}
+
+4 2 2
+5 3 4
+4 3 5
+2 3 7
+1 4 9
+1 3 10
+2 2 12 -> 1 5로 가야되는데 2 2로 감으로 조건과 다르게 접근.
+3 2 13
+3 1 14
+2 1 15
+1 2 17
+1 5 20
+1 6 21
+2 5 23
+2 4 24
+3 4 25
+4 4 26
+4 5 27
+4 6 28
+5 6 29
+5 5 30
+5 4 31
+6 4 32
+6 3 33
+6 2 34
+5 2 35
+5 1 36
+4 1 37
+6 1 39
+6 5 43
+6 6 44
+3 6 47
+2 6 48
+3 5 50
+1 1 56
+56
+

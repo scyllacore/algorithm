@@ -1,0 +1,106 @@
+//1.
+
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+
+int lowerBound(int arr[], int nN, int target) {
+	int low = 0, high = nN;
+	int mid;
+
+	while (low < high) {
+		mid = (low + high) / 2;
+
+
+		if ( arr[mid] < target) {
+			low = mid + 1;
+		}
+		else {
+			high = mid;
+		}
+	}
+	return low;
+}
+
+int upperBound(int arr[], int nN, int target) {
+	int low = 0, high = nN;
+	int mid;
+
+	while (low < high) {
+		mid = (low + high) / 2;
+
+
+		if ( arr[mid] <= target) {
+			low = mid + 1;
+		}
+		else {
+			high = mid;
+		}
+	}
+	return low;
+}
+
+
+int main() {
+
+	cin.tie(NULL);
+	cout.tie(NULL);
+	ios::sync_with_stdio(false);
+
+	int nN, i;
+	cin >> nN;
+
+	int* arr = new int[nN];
+
+	for (i = 0; i < nN; i++) {
+		cin >> arr[i];
+	}
+
+	sort(arr, arr + nN);
+
+
+
+
+	int upper = upperBound(arr, nN, 3);
+	int lower = lowerBound(arr, nN, 3);
+
+	cout << upper<< ' ';
+	cout << lower << ' ';
+
+
+
+}
+
+
+//2.
+
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+
+bool binarySearch(int* start,int* end,int val) {
+	end = lower_bound(start, end, val);
+	return (start != end && val == *end);
+}
+
+int main() {
+
+	int arr[6] = { 1,3,10,13,60,100 };
+
+	cout << binary_search(arr, arr + 6, 30) << '\n';
+	cout << lower_bound(arr, arr + 6, 10) - arr << '\n';
+	cout << upper_bound(arr, arr + 6, 10) - arr << '\n';
+	cout << binarySearch(arr, arr + 6, 61) << '\n';
+
+
+// https://ansohxxn.github.io/stl/bound/
+// https://rebro.kr/33	
+// https://shoark7.github.io/programming/algorithm/3-LIS-algorithms
+}
+
+
+

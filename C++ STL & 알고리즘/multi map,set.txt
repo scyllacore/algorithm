@@ -1,0 +1,81 @@
+#include <iostream>
+#include <map>
+#include <set>
+
+using namespace std;
+
+int main() {
+
+	multimap<string, int> mm;
+
+	mm.insert({"hi",15 });
+	mm.insert({ "hi",16 });
+	mm.insert({ "hi",17 });
+	mm.insert({ "good",19 });
+
+
+	//cout << mm.lower_bound("hi")->second;
+
+
+	for (auto iter = mm.lower_bound("hi"); iter != mm.upper_bound("hi"); iter++) {
+		cout << iter->second << ' ';
+	}
+
+	mm.erase(mm.lower_bound("hi"));
+	//mm.erase(mm.find("hi"));
+	//	cout << mm.lower_bound("hi")->second;
+
+	cout << '\n';
+
+	for (auto iter = mm.begin(); iter != mm.end(); iter++) {
+		cout << iter->second << ' ';
+	}
+	cout << '\n';
+
+	for (auto iter : mm) {
+		cout << iter.second << ' ';
+	}
+
+
+	multiset<int> ms;
+
+	ms.insert(3);
+	ms.insert(1);
+	ms.insert(3);
+	ms.insert(3);
+	ms.insert(3);
+
+	cout << ms.count(3) << '\n';
+
+	for (auto iter : ms) {
+		cout << iter << ' ';
+	}
+
+	cout << '\n';
+	for (auto iter = ms.lower_bound(3); iter != ms.upper_bound(3); iter++){
+		cout << *iter << ' ';
+	}
+	cout << '\n';
+
+	ms.erase(ms.find(3));
+	ms.erase(ms.find(3));
+
+	ms.erase(ms.find(3));
+
+	ms.erase(ms.find(3));
+
+
+	for (auto iter : ms) {
+		cout << iter << ' ';
+	}
+	cout << '\n';
+
+	auto f = ms.find(3);
+
+
+	if (f != ms.end()) {
+		cout << *f;
+	}
+
+
+}

@@ -1,0 +1,24 @@
+#include <iostream>
+#include <unordered_map>
+
+using namespace std;
+
+int main() {
+	cin.tie(NULL);
+	cout.tie(NULL);
+	ios::sync_with_stdio(false);
+
+	unordered_map<int, int> um;
+
+	cout << "아무 것도 안 넣음 :" << um.size() << '\n';
+
+	cout << "접근만 하였음 : " << um[0] << '\n';
+
+	cout << "0에 대해 데이터가 생겨 사이즈가 1 됨 : " << um.size() << '\n';
+
+	cout << "key 0값 지움" << '\n';
+	um.erase(0);
+
+	cout << "지운 후 사이즈 0됨 : " << um.size() << '\n';
+
+}

@@ -1,0 +1,138 @@
+1.
+#include <string>
+#include <vector>
+//#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int partition(string p){
+    int open=0,close=0;
+    int len = p.length();
+    int i;
+    
+    for(i=0; i<len; i++){
+        
+        if(p[i] == '(') open++;
+        else close++;
+       
+        if(open==close){return i+1;}        
+    }
+    
+}
+
+string DFS(string u,string v){
+    
+    int point;
+    
+    if(v.length() ==0){
+       
+        int len = u.length();
+   
+        if(u[0]==')' && u[len-1] == '(') {swap(u[0] , u[len-1]);}
+        
+        if(len<=2){return u;}
+        
+        string uSub = u.substr(1,len-2); 
+        point = partition(uSub);
+        
+        return u[0]+ DFS(uSub.substr(0,point),uSub.substr(point)) +u[len-1];
+    }
+    else{
+        
+    point = partition(u);  
+    u=DFS(u.substr(0,point),u.substr(point)); //오류1. substr(point+1)로 써서 틀림. 범위를 정확히 지켜서 써준다.
+    
+    point = partition(v);
+    v=DFS(v.substr(0,point),v.substr(point));
+        
+    return u+v;
+        
+    }   
+    
+}
+
+string solution(string p) {
+    string answer;
+
+    int point = partition(p); 
+    //cout << point;
+    
+    answer = DFS(p.substr(0,point),p.substr(point));
+      
+    return answer;
+}
+
+
+2.
+
+#include <string>
+#include <vector>
+//#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int partition(string p){
+    int open=0,close=0;
+    int len = p.length();
+    int i;
+    
+    for(i=0; i<len; i++){
+        
+        if(p[i] == '(') open++;
+        else close++;
+       
+        if(open==close){return i+1;}        
+    }
+    
+}
+
+bool isRight(string p){
+    
+    vector<char> stackCh;
+    
+    for(auto ch : p){
+        if(ch=='(') stackCh.push_back('(');
+        else if(!stackCh.empty() && stackCh.back() == '(') stackCh.pop_back();
+    }
+    
+    return stackCh.empty();
+    
+}
+
+string DFS(string u,string v){
+    
+    int point;
+    
+    if(u.length() == 0){
+        return "";
+    }
+    
+    if(isRight(u)){
+        point = partition(v);
+        v=DFS(v.substr(0,point),v.substr(point));
+        return u+v;
+    }
+    else{
+            
+        point = partition(v);
+        v= '(' + DFS(v.substr(0,point),v.substr(point)) + ')';
+        
+        int len = u.length();
+        
+        return v +  u.substr(1,len-2);
+        
+    }
+}
+
+string solution(string p) {
+    string answer;
+
+    int point = partition(p);    
+    answer = DFS(p.substr(0,point),p.substr(point));
+      
+    return answer;
+}
+
+
