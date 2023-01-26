@@ -2,35 +2,35 @@
 
 using namespace std;
 
-int front = 0, rear = 0;
+int front = 0, back = 0;
 int queue[10001] = { 0 };
 
 
 void push(int X)
 {
-	queue[front++] = X;
+	queue[back++] = X;
 }
 
 int pop()
 {
-	return front - rear != 0 ? queue[rear++] : -1;
+	return back - front != 0 ? queue[front++] : -1;
 }
 
-int frontCkech()
+int ckech_front()
 {
-	return front - rear != 0 ? queue[rear] : -1;
+	return back - front != 0 ? queue[front] : -1;
 
 }
 
-int backCkech()
+int ckech_back()
 {
-	return front - rear != 0 ? queue[front-1] : -1;
+	return back - front != 0 ? queue[back - 1] : -1;
 
 }
 
 int empty()
 {
-	return front - rear == 0 ? 1 : 0;
+	return back - front == 0 ? 1 : 0;
 }
 
 
@@ -57,16 +57,16 @@ int main() {
 			}
 		}
 		else if (cmd[0] == 's') {
-			cout << front - rear << '\n';
+			cout << back - front << '\n';
 		}
 		else if (cmd[0] == 'e') {
 			cout << empty() << '\n';
 		}
 		else if (cmd[0] == 'f') {
-			cout << frontCkech() << '\n';
+			cout << ckech_front() << '\n';
 		}
 		else if (cmd[0] == 'b') {
-			cout << backCkech() << '\n';
+			cout << ckech_back() << '\n';
 
 		}
 

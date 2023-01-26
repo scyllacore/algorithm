@@ -8,8 +8,8 @@ int main() {
 	cin.tie(NULL);
 	ios::sync_with_stdio(false);
 
-	int n,k,i;
-	queue<int> Josephus;
+	int n, k, i;
+	queue<int> josephus;
 
 	cin >> n >> k;
 
@@ -17,25 +17,25 @@ int main() {
 
 	for (i = 1; i <= n; i++)
 	{
-		Josephus.push(i);
+		josephus.push(i);
 	}
 
-	for (; !Josephus.empty();)
+	for (; !josephus.empty();)
 	{
-		for (i = 0; i < k-1; i++)
+		for (i = 0; i < k - 1; i++)
 		{
-			Josephus.push(Josephus.front());
-			Josephus.pop();
+			josephus.push(josephus.front());
+			josephus.pop();
 		}
 
-		if (Josephus.size() != 1) {
-			cout << Josephus.front() << ", ";
+		if (josephus.size() != 1) {
+			cout << josephus.front() << ", ";
 		}
 		else {
-			cout << Josephus.front() << '>';
+			cout << josephus.front() << '>';
 
 		}
-		Josephus.pop();
+		josephus.pop();
 	}
 
 
