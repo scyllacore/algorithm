@@ -9,7 +9,7 @@ class Solution {
         return changeDecimalToBinary(decimal);
     }
     
-    public static int changeBinaryToDecimal(String binary){
+    public int changeBinaryToDecimal(String binary){
         int decimal = 0;
 
         for(int i=0; i<binary.length(); i++){
@@ -19,7 +19,7 @@ class Solution {
         return decimal;
     }
 
-    public static String changeDecimalToBinary(int decimal){
+    public String changeDecimalToBinary(int decimal){
         String binary = "";
 
         for(;decimal>0;){
