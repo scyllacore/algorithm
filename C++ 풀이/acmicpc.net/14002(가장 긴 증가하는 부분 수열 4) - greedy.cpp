@@ -33,11 +33,9 @@ int main() {
 		}
 		else {
 			dp[idx] = arr[i];
-
 		}
 
 		dpCnt[i] = idx + 1;
-
 	}
 
 	int size = dp.size();

@@ -2,34 +2,37 @@
 
 using namespace std;
 
+#define MOD (int)1e9
+
 int main() {
 
-	cin.tie(NULL);
-	cout.tie(NULL);
+	cin.tie(0);
 	ios::sync_with_stdio(false);
 
-	int n, i, j;
+	int dp[101][10] = { {0},{0,1,1,1,1,1,1,1,1,1} };
+	int n;
+
 	cin >> n;
 
-	int dp[101][10] = { {0},{0,1,1,1,1,1,1,1,1,1} };
-	unsigned long long result = 0;
+	int i, j;
 
-	for (i = 2; i <= n; i++)
-	{
-		dp[i][0] = dp[i - 1][1] % 1000000000;
+	for (i = 2; i <= n; i++) {
+		dp[i][0] = dp[i - 1][1] % MOD;
 
-		for (j = 1; j < 9; j++)
-		{
-			dp[i][j] = (dp[i - 1][j - 1] + dp[i - 1][j + 1]) % 1000000000;
+		for (j = 1; j <= 8; j++) {
+			dp[i][j] = (dp[i - 1][j - 1] + dp[i - 1][j + 1]) % MOD;
 		}
-		dp[i][9] = dp[i - 1][8] % 1000000000;
+		dp[i][9] = dp[i - 1][8] % MOD;
+
 	}
 
-	for (i = 0; i < 10; i++)
-	{
+	unsigned long long result = 0;
+
+	for (i = 0; i <= 9; i++) {
 		result += dp[n][i];
 	}
 
-	cout << result % 1000000000;
+	cout << result % MOD;
+	return 0;
 
 }
