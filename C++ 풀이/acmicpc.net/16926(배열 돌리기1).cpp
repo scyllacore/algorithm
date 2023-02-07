@@ -9,7 +9,6 @@ int n, m, k;
 
 void rotateBoard(vector<vector<int>>& board) {
 	int i, j;
-	int n = board.size(), m = board[0].size();
 
 	int cnt = min(n, m) / 2;
 

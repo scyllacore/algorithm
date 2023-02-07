@@ -44,7 +44,7 @@ int main() {
 
 	cin >> n >> m;
 
-	int i,num;
+	int i, num;
 
 	for (i = 0; i < n; i++) {
 		cin >> num;
