@@ -1,0 +1,6 @@
+SELECT NAME, COUNT(NAME) AS COUNT
+FROM ANIMAL_INS
+GROUP BY NAME HAVING COUNT(NAME) >= 2
+ORDER BY NAME
+
+# https://wansook0316.github.io/cs/database/2020/04/25/where-having-%EC%B0%A8%EC%9D%B4.html
