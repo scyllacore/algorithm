@@ -49,6 +49,8 @@ int main() {
 		cin >> arr[i];
 	}
 
+	//prev_permutation(arr.begin(), arr.end());
+
 	if (prevPermutation(n)) {
 		for (i = 0; i < n; i++) {
 			cout << arr[i] << ' ';

@@ -7,7 +7,8 @@ int map[301][301];
 int N, M, R;
 
 int dy[4] = { 0,1,0,-1 };
-int dx[4] = { 1,0,-1,0 };
+int dx[4] = { 1,0,-1,0 }; // 순서 중요
+// 반시계 방향으로 돌릴 때 시계 방향(오,위,왼,아래)으로 접근하며 회전시킨다.  
 
 void rotate(int start, int len) {
 	int r = R % len;
@@ -22,7 +23,9 @@ void rotate(int start, int len) {
 			int ny = y + dy[k];
 			int nx = x + dx[k];
 
-			if (ny == start && nx == start) break;
+			/*if (ny == start && nx == start) {
+				break;
+			} 사실 필요 없다.*/
 			if (start <= ny && ny < N - start && start <= nx && nx < M - start) {
 				map[y][x] = map[ny][nx];
 				y = ny;

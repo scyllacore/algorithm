@@ -50,6 +50,8 @@ int main() {
 	for (i = 0; i < n; i++) {
 		cin >> arr[i];
 	}
+	
+	//next_permutation(arr.begin(), arr.end());
 
 	if (nextPermutation(n)) {
 		for (i = 0; i < n; i++) {
