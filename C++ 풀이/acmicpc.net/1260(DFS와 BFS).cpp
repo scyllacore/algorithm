@@ -69,8 +69,8 @@ int main() {
 	}
 
 	for (i = 1; i <= n; i++) {
-		sort(graph[i].begin(), graph[i].end());
-		graph[i].erase(unique(graph[i].begin(), graph[i].end()), graph[i].end());
+		sort(graph[i].begin(), graph[i].end()); // 정렬 기준이 있기 때문에 필요
+		//graph[i].erase(unique(graph[i].begin(), graph[i].end()), graph[i].end()); -- 필요 없음. 사실 출제자의 실수가 아니라면 중복 오류는 나지 않음.
 	}
 
 	visited[v] = 1;

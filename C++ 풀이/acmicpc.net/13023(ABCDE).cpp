@@ -9,7 +9,7 @@ vector<vector<int>> friendsGraph;
 bool visited[2000] = { 0 };
 
 void DFS_btrk(int numF, int depth) {
-	
+
 	int i;
 
 	if (depth > 5) {
@@ -20,7 +20,7 @@ void DFS_btrk(int numF, int depth) {
 	for (i = 0; i < friendsGraph[numF].size(); i++) {
 
 		if (visited[friendsGraph[numF][i]]) continue;
-		
+
 		visited[friendsGraph[numF][i]] = 1;
 		DFS_btrk(friendsGraph[numF][i], depth + 1);
 		visited[friendsGraph[numF][i]] = 0;
@@ -50,10 +50,13 @@ int main() {
 		friendsGraph[b].push_back(a);
 	}
 
+	/*
 	for (i = 0; i < n; i++) {
-		sort(friendsGraph[i].begin(), friendsGraph[i].end());
-		friendsGraph[i].erase(unique(friendsGraph[i].begin(), friendsGraph[i].end()), friendsGraph[i].end());
-	}
+			sort(friendsGraph[i].begin(), friendsGraph[i].end());
+			friendsGraph[i].erase(unique(friendsGraph[i].begin(), friendsGraph[i].end()), friendsGraph[i].end());
+		}
+	-- 필요 없음.
+	*/
 
 	for (i = 0; i < n; i++) {
 		visited[i] = 1;

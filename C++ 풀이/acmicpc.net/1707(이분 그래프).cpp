@@ -17,7 +17,7 @@ void BFS(int node) {
 	bfsQ.push(node);
 
 	int curNode, nextNode;
-	int i,size;
+	int i, size;
 
 	while (!bfsQ.empty()) {
 
@@ -32,16 +32,15 @@ void BFS(int node) {
 				bfsQ.push(nextNode);
 				visited[nextNode] = (visited[curNode] == 1 ? 2 : 1); //오류1 고친 코드.
 			}
-			else {
-				if (visited[nextNode] == visited[curNode]) {
-					bipartite = 0;
-					return;
-				}
+			else if (visited[nextNode] == visited[curNode]) {
+				bipartite = 0;
+				return;
 			}
+
 			//오류1. state = (state == 1 ? 2 : 1); 틀린 코드 : 현재 노드 상태와 비교해야한다.
 			//새로운 front값을 사용할 때 마다 구역이 바뀜으로 올바르지 않다.
 		}
-	
+
 	}
 
 }
@@ -61,7 +60,7 @@ int main() {
 	while (tc--) {
 
 		cin >> v >> e;
-		
+
 		graph.assign(v + 1, vector<int>(0));
 
 		for (i = 0; i < e; i++) {

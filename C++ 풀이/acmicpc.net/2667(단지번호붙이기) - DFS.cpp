@@ -25,7 +25,7 @@ void DFS_btrk(int y, int x) {
 		int xNew = x + dx[i];
 
 		if (xNew >= 1 && xNew <= n && yNew >= 1 && yNew <= n) {
-			if (map[yNew][xNew]==1) {
+			if (map[yNew][xNew] == 1) {
 				DFS_btrk(yNew, xNew);
 			}
 		}
@@ -50,7 +50,7 @@ int main() {
 
 	for (i = 1; i <= n; i++) {
 		for (j = 1; j <= n; j++) {
-			if (map[i][j]==1)
+			if (map[i][j] == 1)
 			{
 				houseN = 0;
 				DFS_btrk(i, j);

@@ -41,11 +41,11 @@ int main() {
 		graph[node2].push_back(node1);
 	}
 
-	for (i = 1; i <= n; i++) {
+	/*for (i = 1; i <= n; i++) {
 		sort(graph[i].begin(), graph[i].end());
-	}
+	}*/
 
-	for(i=1; i<=n; i++){
+	for (i = 1; i <= n; i++) {
 		if (visited[i]) continue;
 
 		visited[i] = 1;
