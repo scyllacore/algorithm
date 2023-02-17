@@ -1,0 +1,23 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+bool cmp(int& a, int& b) { // a변수에 뒤에 있는 수 , b변수에 앞에 있는 수가 들어간다.
+	cout << a << ' ' << b << '\n'; // a와 b가 바껴서 들어가 b a이다. java와 방식이 똑같다.
+	return a>b; // b(2)>a(1)이다. 따라서 조건이 맞을 때 SWAP이 일어난다.
+	//편하게 직관적으로 조건이 맞지 않다면(false) 조건이 맞는 형태로 swap이 일어난다고 생각하자
+	//ex) a가 1 b가 2일 때 a>b는 조건에 맞지 않음으로 swap이 일어난다.
+}
+
+int main() {
+
+	int arr[] = { 1,2,3,4,5 };
+
+	sort(arr, arr + 5, cmp);
+
+	for (int i : arr) {
+		cout << i << ' ';
+	}
+
+}

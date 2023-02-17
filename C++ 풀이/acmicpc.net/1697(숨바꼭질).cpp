@@ -8,6 +8,7 @@ int visited[100001] = { 0 };
 int BFS(int spot) {
 
 	queue<int> spotBFS;
+	visited[n] = 1;
 	spotBFS.push(spot);
 
 	int curSpot, nextSpot;
@@ -50,7 +51,7 @@ int main() {
 
 	cin >> n >> k;
 
-	visited[n] = 1;
 	cout << BFS(n);
 
+	return 0;
 }

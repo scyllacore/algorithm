@@ -7,18 +7,17 @@ using namespace std;
 
 vector<vector<int>> graph;
 queue<int> nodeBFS;
-vector<int> nodeOrder, inOrder, ansOrder(1, 0);
-bool visited[100001] = { 0 };
+vector<int> nodeOrder, inOrder;
+int visited[100001] = { 0 };
 
 int n;
 
-bool compare(const int& idx1, const int& idx2) {
-	return nodeOrder[idx1] < nodeOrder[idx2];
-}
-
-void BFS() {
+bool BFS() {
+	nodeBFS.push(1);
+	visited[1] = 1;
 
 	int i, nodeN, nextNode;
+	int cnt = 1;
 
 	while (!nodeBFS.empty()) {
 
@@ -31,22 +30,23 @@ void BFS() {
 
 			if (visited[nextNode]) continue;
 
-			visited[nextNode] = 1;
+			if (visited[nextNode] < cnt) {
+				continue;
+			}
+
+			if (nodeOrder[nextNode] != cnt + 1) {
+				return 0;
+			}
+
+			visited[nextNode] = ++cnt;
 			nodeBFS.push(nextNode);
-			ansOrder.push_back(nextNode);
+
 		}
 	}
-}
 
-bool isBFS() {
-	int i;
-
-	for (i = 1; i < inOrder.size(); i++) {
-		if (inOrder[i] != ansOrder[i])
-			return 0;
-	}
 	return 1;
 }
+
 
 int main() {
 
@@ -74,16 +74,5 @@ int main() {
 		nodeOrder[inOrder[i]] = i;
 	}
 
-	for (i = 1; i <= n; i++) {
-		sort(graph[i].begin(), graph[i].end(), compare);
-	}
-
-	nodeBFS.push(1);
-	ansOrder.push_back(1);
-	visited[1] = 1;
-
-	BFS();
-
-	cout << isBFS();
-
+	cout << BFS();
 }
