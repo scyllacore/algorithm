@@ -10,7 +10,7 @@ struct dayInfo {
 };
 
 int n;
-int maxDay = 0;
+int maxP = 0;
 dayInfo* day;
 
 void dfs(int curDay, int sumT) {
@@ -19,7 +19,7 @@ void dfs(int curDay, int sumT) {
 		return;
 	}
 
-	maxDay = max(sumT, maxDay);
+	maxP = max(sumT, maxP);
 
 	for (int i = curDay; i <= n; i++) {
 		dfs(i + day[i].t, sumT + day[i].p);
@@ -51,6 +51,6 @@ int main() {
 		dfs(i, 0);
 	}
 
-	cout << maxDay;
+	cout << maxP;
 
 }
