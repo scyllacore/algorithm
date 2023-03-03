@@ -1,0 +1,30 @@
+SET @HOUR = -1;
+
+WITH HOUR_TABLE AS
+(   
+    SELECT 
+        (@HOUR := @HOUR + 1) AS 'HOUR'
+        , 0 AS 'COUNT'
+    FROM
+        ANIMAL_OUTS
+    WHERE
+        @HOUR < 23
+)
+,OUTS AS
+(
+SELECT 
+    HOUR(DATETIME) AS 'HOUR' , COUNT(*) AS 'COUNT'
+FROM
+    ANIMAL_OUTS 
+GROUP BY HOUR(DATETIME)
+ORDER BY HOUR(DATETIME)
+)
+
+SELECT 
+    HOUR_TABLE.HOUR
+    ,IF(OUTS.COUNT IS NULL , 0 ,OUTS.COUNT) AS 'COUNT'
+FROM
+    HOUR_TABLE LEFT JOIN OUTS
+        ON HOUR_TABLE.HOUR = OUTS.HOUR
+
+#https://leejinseop.tistory.com/19
