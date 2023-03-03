@@ -1,3 +1,29 @@
+WITH PICK_CAR AS
+(
+    SELECT 
+        CAR_ID AS 'CAR_ID'
+    FROM 
+        CAR_RENTAL_COMPANY_RENTAL_HISTORY
+    WHERE 
+        '2022-10-16' BETWEEN START_DATE AND END_DATE
+)
+
+SELECT
+    CAR_ID
+    ,IF (CAR_ID IN ( # 테이블 이름만 쓰면 안되고 SELECT를 통해 field list를 출력해줘야 한다.
+            SELECT *
+            FROM PICK_CAR
+        )
+        ,'대여중'
+        ,'대여 가능') AS 'AVAILABILITY'
+FROM 
+    CAR_RENTAL_COMPANY_RENTAL_HISTORY AS RENTAL
+GROUP BY 
+    CAR_ID
+ORDER BY 
+    CAR_ID DESC
+
+/*
 SELECT
     CAR_ID
     , IF(CAR_ID IN 
@@ -13,8 +39,8 @@ GROUP BY
     CAR_ID
 ORDER BY 
     CAR_ID DESC
-    
-    
+*/
+
 /*
 SELECT
     CAR_ID
