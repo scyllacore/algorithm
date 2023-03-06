@@ -1,0 +1,83 @@
+WITH R1 AS
+(
+    SELECT
+        A.CAR_TYPE
+        , A.DAILY_FEE     
+        , B.* 
+        , DATEDIFF(B.END_DATE,B.START_DATE) + 1 AS 'DIFF'
+        , CASE
+            WHEN DATEDIFF(B.END_DATE,B.START_DATE) + 1 < 7 THEN 0
+            WHEN DATEDIFF(B.END_DATE,B.START_DATE) + 1 BETWEEN 7 AND 29 THEN 7
+            WHEN DATEDIFF(B.END_DATE,B.START_DATE) + 1 BETWEEN 30 AND 89 THEN 30
+            WHEN DATEDIFF(B.END_DATE,B.START_DATE) + 1 >= 90 THEN 90
+          END
+         AS 'DURATION_TYPE'
+    FROM
+        CAR_RENTAL_COMPANY_CAR A
+        INNER JOIN
+        CAR_RENTAL_COMPANY_RENTAL_HISTORY B
+            ON A.CAR_ID = B.CAR_ID
+    WHERE A.CAR_TYPE = '트럭'
+),
+R2 AS
+(
+    SELECT 
+        CAR_TYPE
+        ,REGEXP_REPLACE(DURATION_TYPE,'[^0-9]','') AS 'DURATION_TYPE'
+        ,DISCOUNT_RATE
+    FROM 
+       CAR_RENTAL_COMPANY_DISCOUNT_PLAN 
+    WHERE  CAR_TYPE = '트럭'
+),
+R3 AS
+(
+    SELECT
+        R1.*
+        ,IF(R2.DISCOUNT_RATE IS NULL,0,R2.DISCOUNT_RATE) AS 'DISCOUNT_RATE'
+    FROM
+        R1
+        LEFT JOIN
+        R2
+            ON R1.DURATION_TYPE = R2.DURATION_TYPE   
+)
+
+SELECT 
+    HISTORY_ID
+    ,ROUND(SUM(DAILY_FEE * DIFF * ((100-DISCOUNT_RATE)/100)),0) AS 'FEE'
+FROM
+    R3
+GROUP BY
+    HISTORY_ID
+ORDER BY 
+    FEE DESC, HISTORY_ID DESC
+
+
+#https://superkong1.tistory.com/31
+
+/*
+,
+R3 AS
+(
+    SELECT 
+        R1.*
+        ,DISCOUNT_RATE
+    FROM 
+        R1
+        INNER JOIN
+        R2
+            ON R1.CAR_TYPE = R2.CAR_TYPE
+)
+,
+R4 AS
+(
+    SELECT 
+        *
+    FROM
+        R3
+    WHERE (DIFF>=7 AND DIFF<=29 AND DURATION_TYPE = 7)
+          OR
+          (DIFF>=30 AND DIFF<=89 AND DURATION_TYPE = 30)
+          OR  
+          (DIFF >= 90 AND DURATION_TYPE = 90)
+)
+*/
