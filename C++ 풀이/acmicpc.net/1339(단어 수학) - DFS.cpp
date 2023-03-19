@@ -12,9 +12,18 @@ int n, maxSum;
 map<char, int> alphaMap;
 
 void calSum() {
-    int sum = 0;
-    int i, j, powTmp;
+    int totalSum = 0;
+    int i, j;
 
+    for (i = 0; i < n; i++) {
+        int sum = 0;
+        for (j = 0; j < word[i].length(); j++) {
+            sum = sum * 10 + alphaMap[word[i][j]];
+        }
+        totalSum += sum;
+    }
+
+    /*
     for (i = 0; i < n; i++) {
         powTmp = 1;
         for (j = word[i].length() - 1; j >= 0; j--) {
@@ -22,35 +31,37 @@ void calSum() {
             powTmp *= 10;
         }
     }
+    */
 
-    maxSum = max(maxSum, sum);
+    maxSum = max(maxSum, totalSum);
 }
 
-void dfs(map<char, int>::iterator idx) {
+void dfs(map<char, int>::iterator idx) { //매개변수에 auto타입을 쓸 수 없다.
 
-    
+
     if (idx == alphaMap.end()) {
         calSum();
         return;
     }
 
-    for (int i = 10-alphaMap.size(); i < 10; i++) {
+    for (int i = 10 - alphaMap.size(); i < 10; i++) {
 
         if (visited[i]) {
             continue;
         }
 
         alphaMap[idx->first] = i;
-        
+
         ++idx;
         visited[i] = true;
 
-        dfs(idx);
+        dfs(idx); // idx가 iterator값이기에 idx+1 같은 연산을 할 수 없다.
 
         --idx;
         visited[i] = false;
     }
 }
+
 int main()
 {
     cin.tie(NULL);

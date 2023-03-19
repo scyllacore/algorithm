@@ -26,7 +26,7 @@ int main() {
 	for (i = 0; i < n; i++) {
 		tmpPow = 1;
 		for (j = word[i].size()-1; j >= 0; j--) {
-			alpha[word[i][j] - 65] += tmpPow;
+			alpha[word[i][j] - 'A'] += tmpPow;
 			tmpPow *= 10;
 		}
 	}

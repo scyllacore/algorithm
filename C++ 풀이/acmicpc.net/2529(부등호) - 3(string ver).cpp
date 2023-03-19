@@ -23,7 +23,9 @@ void DFS_btrk(int depth, int preNum, string sum) {
 
 	for (i = 0; i <= 9; i++) {
 
-		if (numCheck[i] || (str[depth - 1] == '>' && preNum < i) || (str[depth - 1] == '<' && preNum > i)) continue;
+		if (numCheck[i] || (str[depth - 1] == '>' && preNum < i) || (str[depth - 1] == '<' && preNum > i)) {
+			continue;
+		}
 
 		numCheck[i] = 1;
 		DFS_btrk(depth + 1, i, sum + to_string(i));
