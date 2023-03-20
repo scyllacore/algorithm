@@ -4,10 +4,11 @@
 
 using namespace std;
 
-int n, maxN = -1000000000, minN = 1000000000;
+#define RANGE (int)1e9
+
+int n, maxN = -RANGE, minN = RANGE;
 int cal[4];
 vector<int> numArr;
-
 
 void dfs(int k, int resultSum)
 {

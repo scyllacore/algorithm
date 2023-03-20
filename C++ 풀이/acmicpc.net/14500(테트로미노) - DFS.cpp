@@ -18,8 +18,8 @@ int exceptTetro[4][4][2] = {
 	{{0, 0}, {-1, 1}, {0, 1}, {1, 1}},
 };
 
-bool isTruePos(int y, int x) {
-	return (0 <= y && y < n) && (0 <= x && x < m);
+bool isNotTruePos(int y, int x) {
+	return y < 0 || y >= n || x < 0 || x >= m;
 }
 
 void except(int y, int x) {
@@ -29,20 +29,19 @@ void except(int y, int x) {
 	int nextY, nextX;
 
 	for (i = 0; i < 4; i++) {
-		sum = 0, cnt = 0;
+		sum = 0;
 		for (j = 0; j < 4; j++) {
 
 			nextY = y + exceptTetro[i][j][0];
 			nextX = x + exceptTetro[i][j][1];
 
-			if (!isTruePos(nextY, nextX)) {
+			if (isNotTruePos(nextY, nextX)) {
 				break;
 			}
-			cnt++;
 			sum += tetroMap[nextY][nextX];
 
 		}
-		if (cnt == 4) maxVal = max(maxVal, sum);
+		if (j == 4) maxVal = max(maxVal, sum);
 	}
 }
 
@@ -59,7 +58,7 @@ void dfs(int y, int x, int depth, int sum) {
 		nextY = y + dy[i];
 		nextX = x + dx[i];
 
-		if (!isTruePos(nextY, nextX) || visited[nextY][nextX]) {
+		if (isNotTruePos(nextY, nextX) || visited[nextY][nextX]) {
 			continue;
 		}
 

@@ -21,14 +21,7 @@ coin posCoin;
 queue<coin> coinQ;
 
 bool isOut(int y, int x) {
-	if ((y >= 1 && y <= n) && (x >= 1 && x <= m)) {
-		return 1;
-	}
-	else {
-		return 0;
-	}
-
-
+	return y < 1 || y > n || x < 1 || x > m;
 }
 
 
@@ -54,7 +47,7 @@ int BFS() {
 			nextY2 = tmpCoin.y2 + dy[i];
 			nextX2 = tmpCoin.x2 + dx[i];
 
-			if ((!isOut(nextY1, nextX1) && !isOut(nextY2, nextX2))) {
+			if (isOut(nextY1, nextX1) && isOut(nextY2, nextX2)) {
 				continue;
 			}
 
@@ -67,7 +60,8 @@ int BFS() {
 				nextX2 = tmpCoin.x2;
 			}
 
-			if ((isOut(nextY1, nextX1) && !isOut(nextY2, nextX2)) || (!isOut(nextY1, nextX1) && isOut(nextY2, nextX2))) {
+			if ((!isOut(nextY1, nextX1) && isOut(nextY2, nextX2)) 
+				|| (isOut(nextY1, nextX1) && !isOut(nextY2, nextX2))) {
 				if (tmpCoin.cnt + 1 <= 10) { return tmpCoin.cnt + 1; }
 				else { return -1; }
 			}

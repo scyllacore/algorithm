@@ -2,8 +2,10 @@
 
 using namespace std;
 
+#define MAX (int)2e6
+
 int n;
-bool visited[2000001] = { 0 };
+bool visited[MAX+1] = { 0 };
 int* arr;
 
 void DFS(int idx, int sum) {
@@ -37,11 +39,12 @@ int main() {
 
 	DFS(0,0);
 
-	for (i = 1; i <= 2000000; i++) {
+	delete[] arr;
+
+	for (i = 1; i <= MAX; i++) {
 		if (!visited[i]) {
 			cout << i;
 			return 0;
 		}
 	}
-
 }
