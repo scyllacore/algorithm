@@ -6,27 +6,30 @@ using namespace std;
 int n, ans = 0;
 int col[16];
 
-bool checkQueen(int depth) {
+bool checkQueen(int xDepth) {
 
-	for (int i = 1; i < depth; i++) {
-		if (col[depth] == col[i] || (abs(col[depth] - col[i]) == depth - i)) return 0;
+	for (int i = 1; i < xDepth; i++) {
+		if (col[xDepth] == col[i]
+			|| (abs(col[xDepth] - col[i]) == xDepth - i)) {
+			return 0;
+		}
 	}
 
 	return 1;
 }
 
-void nQueen_DFS(int depth) {
+void nQueen_DFS(int xDepth) {
 
-	if (depth > n) {
+	if (xDepth > n) {
 		ans++;
 		return;
 	}
 
 	for (int i = 1; i <= n; i++) {
-		col[depth] = i;
+		col[xDepth] = i;
 
-		if (checkQueen(depth)) {
-			nQueen_DFS(depth + 1);
+		if (checkQueen(xDepth)) {
+			nQueen_DFS(xDepth + 1);
 		}
 
 	}

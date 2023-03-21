@@ -18,7 +18,6 @@ void print() {
 		}
 		cout << '\n';
 	}
-	exit(0);
 }
 
 bool check(int y, int x, int n) {
@@ -46,6 +45,7 @@ void DFS_btrk(int cnt) {
 
 	if (cnt >= zeroPos.size()) {
 		print();
+		exit(0);
 	}
 
 	int y = zeroPos[cnt].y, x = zeroPos[cnt].x;
