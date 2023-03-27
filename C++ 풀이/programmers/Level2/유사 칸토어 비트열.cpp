@@ -4,6 +4,44 @@
 
 using namespace std;
 
+long long countOne(long long idx, int& n) {
+
+    int res = 0;
+    int exp = 0;
+
+    for (; powl(5, exp + 1) <= idx; exp++) {}
+
+    if (exp <= 0) {
+        return idx >= 3 ? idx - 1 : idx;
+    }
+
+    int powVal = powl(5, exp);
+
+    int quotient = idx / powVal;
+    int reminder = quotient + 1 != 3 ? idx % powVal : 0;
+
+    powVal = powl(4, exp);
+
+    res = quotient * powVal;
+
+    if (quotient >= 3) {
+        res -= powVal;
+    }
+
+    return res + countOne(reminder, n);
+}
+
+int solution(int n, long long l, long long r) {
+    return countOne(r, n) - countOne(l - 1, n);
+}
+
+/*
+#include <string>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
 long long countNumberOne(long long idx) {
 
     long long result = 0;
@@ -15,7 +53,7 @@ long long countNumberOne(long long idx) {
         return idx < 3 ? idx : idx - 1;
     }
 
-    long long quotient = idx / (long long)pow(5, exp);// n은 exp+1이다. exp(n-1)의 값을 이용해 n상태에서 처음부터 idx까지 규칙적으로 1이 나오는 구간과, 1이 어떠한 식으로 배치되어있는지 확인할 수 있다.  
+    long long quotient = idx / (long long)pow(5, exp);// n은 exp+1이다. exp(n-1)의 값을 이용해 n상태에서 처음부터 idx까지 규칙적으로 1이 나오는 구간과, 1이 어떠한 식으로 배치되어있는지 확인할 수 있다.
     long long remainder = (quotient + 1 != 3 ? idx % (long long)pow(5, exp) : 0); // 규칙적이지 않은 구간이다. 다시 재귀를 돌릴 때 사용한다.
 
     if (quotient >= 3) {
@@ -36,3 +74,5 @@ int solution(int n, long long l, long long r) {
 //https://nxnaxx.github.io/algorithm/%EC%9C%A0%EC%82%AC-%EC%B9%B8%ED%86%A0%EC%96%B4-%EB%B9%84%ED%8A%B8%EC%97%B4/algorithm-solution/
 
 //분할 정복
+
+*/
