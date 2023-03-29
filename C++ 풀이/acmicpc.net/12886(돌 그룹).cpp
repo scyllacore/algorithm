@@ -4,13 +4,15 @@
 
 using namespace std;
 
+#define MAX 1501
+
 int a, b, c;
 
 struct stone {
 	int a, b, c;
 };
 
-bool visited[1501][1501] = { {0} };
+bool visited[MAX][MAX] = { {0} };
 
 bool BFS() {
 
@@ -42,8 +44,8 @@ bool BFS() {
 			else { next1 = curA - curB, next2 = curB * 2; }
 
 			if (!visited[next1][next2]) {
-				visited[next2][next1] =visited[next1][next2] = 1;
-				bfsQ.push({ next1,next2,curC});
+				visited[next2][next1] = visited[next1][next2] = 1;
+				bfsQ.push({ next1,next2,curC });
 			}
 
 		}

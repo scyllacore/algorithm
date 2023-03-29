@@ -44,7 +44,7 @@ int BFS() {
 			nextY = curY + dy[i];
 			nextX = curX + dx[i];
 
-			if (nextY <1 || nextY > n || nextX < 1 || nextX > m) {
+			if (nextY < 1 || nextY > n || nextX < 1 || nextX > m) {
 				continue;
 			}
 
@@ -56,6 +56,7 @@ int BFS() {
 				visited[nextY][nextX][curW] = visited[curY][curX][curW] + 1;
 				bfsQ.push({ nextY,nextX, curW });
 			}
+			// if문을 처리해야하는 우선순위가 없다. if와 else if의 위치를 바꿔도 상관없다.
 
 		}
 
