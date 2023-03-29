@@ -1,0 +1,29 @@
+WITH R1 AS(
+    SELECT 
+        *
+    FROM
+        FIRST_HALF
+    
+    UNION ALL
+    
+    SELECT 
+        *
+    FROM
+        JULY
+),
+R2 AS(
+SELECT
+    *,SUM(TOTAL_ORDER) AS 'TOTAL_ORDERS'
+FROM
+    R1
+GROUP BY
+    FLAVOR
+ORDER BY
+    TOTAL_ORDERS DESC
+LIMIT 3
+)
+
+SELECT
+    FLAVOR
+FROM
+    R2
