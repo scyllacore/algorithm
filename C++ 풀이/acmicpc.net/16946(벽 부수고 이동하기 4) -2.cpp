@@ -84,13 +84,14 @@ void countZero() {
 	//}
 	//cout << '\n';
 
+	set<int> searchArea;
 
 	for (i = 0; i < n; i++) {
 		for (j = 0; j < m; j++) {
 
 			if (!mapNM[i][j]) { continue; }
 
-			set<int> searchArea;
+			searchArea.clear();
 
 			for(k=0; k<4; k++){
 				nextY = i + dy[k];
