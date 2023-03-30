@@ -1,0 +1,28 @@
+WITH R1 AS(
+    SELECT 
+        INS.ANIMAL_ID
+        ,INS.ANIMAL_TYPE
+        ,INS.NAME
+        ,INS.SEX_UPON_INTAKE
+        ,OUTS.SEX_UPON_OUTCOME
+    FROM 
+        ANIMAL_INS AS INS
+        INNER JOIN
+        ANIMAL_OUTS AS OUTS
+            ON INS.ANIMAL_ID = OUTS.ANIMAL_ID
+)
+
+SELECT
+    ANIMAL_ID
+    ,ANIMAL_TYPE
+    ,NAME
+FROM
+    R1
+WHERE
+    (SEX_UPON_INTAKE LIKE 'Intact%')
+    AND
+    (SEX_UPON_OUTCOME LIKE 'Neutered%'
+    OR
+    SEX_UPON_OUTCOME LIKE 'Spayed%')
+ORDER BY
+    ANIMAL_ID ASC
