@@ -1,0 +1,34 @@
+WITH R1 AS(
+    SELECT 
+        MAX(VIEWS) AS 'MAX_VIEW'
+    FROM
+       USED_GOODS_BOARD
+),
+R2 AS(
+    SELECT 
+        BOARD_ID
+    FROM
+       USED_GOODS_BOARD
+       INNER JOIN
+       R1
+            ON  USED_GOODS_BOARD.VIEWS = R1.MAX_VIEW
+),
+R3 AS(
+    SELECT 
+         FILE.BOARD_ID AS 'BOARD_ID'
+        ,FILE_ID
+        ,FILE_NAME
+        ,FILE_EXT
+    FROM
+       USED_GOODS_FILE AS FILE
+       INNER JOIN
+       R2
+            ON  FILE.BOARD_ID = R2.BOARD_ID
+)
+
+SELECT
+    CONCAT('/home/grep/src/', BOARD_ID, '/', FILE_ID, FILE_NAME, FILE_EXT ) AS 'FILE_PATH'
+FROM
+    R3
+ORDER BY
+    FILE_ID DESC
