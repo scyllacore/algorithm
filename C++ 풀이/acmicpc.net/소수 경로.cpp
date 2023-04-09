@@ -17,9 +17,9 @@ int visited[MAX] = { 0 };
 
 void setPrime() {
 
-	for (int i = 2; i < MAX / i; i++) {
+	for (int i = 2; i <= MAX / i; i++) {
 		if (!prime[i]) {
-			for (int j = i * i; j < MAX; j += i) {
+			for (int j = i * i; j <= MAX; j += i) {
 				prime[j] = 1;
 			}
 		}
