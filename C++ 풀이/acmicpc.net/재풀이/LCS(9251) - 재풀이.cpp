@@ -13,10 +13,10 @@ int main() {
 	ios::sync_with_stdio(false);
 
 	string s1, s2;
-
 	cin >> s1 >> s2;
 
-	int s1Len = s1.length(), s2Len = s2.length();
+	int s1Len = s1.length();
+	int s2Len = s2.length();
 
 	for (int i = 1; i <= s1Len; i++) {
 		for (int j = 1; j <= s2Len; j++) {
@@ -30,6 +30,6 @@ int main() {
 	}
 
 	cout << dp[s1Len][s2Len];
-
 	return 0;
+
 }

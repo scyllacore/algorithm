@@ -1,5 +1,89 @@
 #include <iostream>
 #include <vector>
+
+using namespace std;
+
+int binarySearch(vector<int>& arr, int& target) {
+	int low = 0, high = arr.size();
+
+	for (; low < high;) {
+		int mid = (low + high) / 2;
+
+		if (arr[mid] < target) {
+			low = mid + 1;
+		}
+		else {
+			high = mid;
+		}
+
+	}
+
+	return low;
+}
+
+int getLower(vector<int>& arr, int& target) {
+	int idx = binarySearch(arr, target);
+	return idx;
+}
+
+int main() {
+	cin.tie(NULL);
+	cout.tie(NULL);
+	ios::sync_with_stdio(false);
+
+	int n;
+	cin >> n;
+
+	vector<int> arr(n);
+
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i];
+	}
+
+	vector<int> lis;
+	vector<int> dp;
+
+	int maxIdx = 0;
+	int maxSize = 0;
+
+	for (int i = 0; i < n; i++) {
+		int idx = getLower(lis, arr[i]);
+
+		if (idx >= lis.size()) {
+			lis.push_back(arr[i]);
+		}
+		else {
+			lis[idx] = arr[i];
+		}
+
+		dp.push_back(idx + 1);
+
+		if (idx + 1 > maxSize) {
+			maxSize = idx + 1;
+			maxIdx = i;
+		}
+	}
+
+	vector<int> ans;
+
+	for (int i = maxIdx; i >= 0; i--) {
+		if (dp[i] == maxSize) {
+			ans.push_back(arr[i]);
+			maxSize--;
+		}
+	}
+
+	cout << ans.size() << '\n';
+
+	for (int i = ans.size() - 1; i >= 0; i--) {
+		cout << ans[i] << ' ';
+	}
+
+	return 0;
+}	
+
+/*#include <iostream>
+#include <vector>
 #include <algorithm>
 
 using namespace std;
@@ -30,7 +114,7 @@ int main() {
 	cout << *max_element(dp.begin(), dp.end());
 	return 0;
 
-}
+}*/
 
 /*
 #include <iostream>

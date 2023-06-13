@@ -3,9 +3,9 @@
 
 using namespace std;
 
-#define SIZE 100
+#define SIZE (int)1e4
 
-int dp[SIZE * SIZE + 1] = { {0} };
+int dp[SIZE + 1] = { {0} };
 
 int main() {
 	cin.tie(NULL);
@@ -16,6 +16,7 @@ int main() {
 	cin >> n >> k;
 
 	vector<int> coin(n + 1);
+
 	for (int i = 1; i <= n; i++) {
 		cin >> coin[i];
 	}
@@ -23,16 +24,15 @@ int main() {
 	dp[0] = 1;
 
 	for (int i = 1; i <= n; i++) {
-		for (int j = 1; j <= k; j++) {
-			if (j - coin[i] >= 0) {
-				dp[j] += dp[j - coin[i]];
-			}
+		for (int j = coin[i]; j <= k; j++) {
+			dp[j] += dp[j - coin[i]];
 		}
 	}
 
 	cout << dp[k];
-
+	return 0;
 }
+
 
 /*
 #include <iostream>
@@ -52,7 +52,8 @@ int main() {
 	int n, k;
 	cin >> n >> k;
 
-	vector<int> coin(n+1);
+	vector<int> coin(n + 1);
+
 	for (int i = 1; i <= n; i++) {
 		cin >> coin[i];
 		dp[i][0] = 1;
@@ -69,7 +70,15 @@ int main() {
 		}
 	}
 
-	cout << dp[n][k];
 
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= k; j++) {
+			cout << dp[i][j] << ' ';
+		}
+		cout << '\n';
+	}
+
+cout << dp[n][k];
+return 0;
 }
 */
