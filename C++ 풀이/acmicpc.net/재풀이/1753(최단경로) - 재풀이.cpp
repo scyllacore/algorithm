@@ -1,6 +1,7 @@
 #include <iostream>
-#include <queue>
 #include <vector>
+#include <queue>
+#include <string>
 
 using namespace std;
 
@@ -8,7 +9,7 @@ using namespace std;
 #define SIZE (int)2e4
 
 struct node {
-	int v;
+	int u;
 	int w;
 };
 
@@ -18,30 +19,29 @@ struct cmp {
 	}
 };
 
-int dis[SIZE + 1];
+int shortDis[SIZE + 1];
 
-vector<vector<node>> graph;
+void dijkstra(int start, vector<vector<node>>& graph) {
+	priority_queue<node, vector<node>, cmp> nodePQ;
 
-void dijkstra(int root) {
-	priority_queue<node, vector<node>, cmp> pq;
+	nodePQ.push({ start,0 });
+	shortDis[start] = 0;
 
-	dis[root] = 0;
-	pq.push({ root,0 });
-
-	for (; !pq.empty();) {
-		int curU = pq.top().v;
-		int curW = pq.top().w;
-		pq.pop();
+	for (; !nodePQ.empty();) {
+		int curU = nodePQ.top().u;
+		int curW = nodePQ.top().w;
+		nodePQ.pop();
 
 		for (int i = 0; i < graph[curU].size(); i++) {
-			int nextV = graph[curU][i].v;
+			int nextV = graph[curU][i].u;
 			int nextW = graph[curU][i].w;
 
-			if (curW + nextW < dis[nextV]) {
-				dis[nextV] = curW + nextW;
-				pq.push({ nextV,curW + nextW });
+			if (curW + nextW < shortDis[nextV]) {
+				shortDis[nextV] = curW + nextW;
+				nodePQ.push({ nextV,curW + nextW });
 			}
 		}
+
 	}
 
 }
@@ -51,15 +51,13 @@ int main() {
 	cout.tie(NULL);
 	ios::sync_with_stdio(false);
 
-	fill(&dis[0], &dis[SIZE + 1], INF);
-
 	int V, E;
 	cin >> V >> E;
 
-	graph.assign(V + 1, vector<node>(0));
-
 	int K;
 	cin >> K;
+
+	vector<vector<node>> graph(V + 1);
 
 	int u, v, w;
 	for (int i = 0; i < E; i++) {
@@ -67,17 +65,11 @@ int main() {
 		graph[u].push_back({ v,w });
 	}
 
-	dijkstra(K);
+	fill(&shortDis[0], &shortDis[SIZE + 1], INF);
+	dijkstra(K, graph);
 
 	for (int i = 1; i <= V; i++) {
-		if (dis[i] == INF) {
-			cout << "INF";
-		}
-		else {
-			cout << dis[i];
-
-		}
-		cout << '\n';
+		cout << (shortDis[i] == INF ? "INF" : to_string(shortDis[i])) << '\n';
 	}
 
 	return 0;
