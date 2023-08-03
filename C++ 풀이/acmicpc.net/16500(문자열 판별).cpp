@@ -1,3 +1,45 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+#define SIZE 100
+
+int main() {
+	cin.tie(NULL);
+	cout.tie(NULL);
+	ios::sync_with_stdio(false);
+
+	string str;
+	cin >> str;
+
+	int n;
+	cin >> n;
+
+	vector<string> words(n);
+
+	for (int i = 0; i < n; i++) {
+		cin >> words[i];
+	}
+
+	bool dp[SIZE + 1] = { 0 };
+
+	int strLen = str.length();
+	dp[strLen] = 1;
+
+	for (int i = strLen; i >= 0; i--) {
+		for (int j = 0; j < n; j++) {
+			if (str.find(words[j], i) == i && dp[i + words[j].length()]) {
+				dp[i] = 1;
+				break;
+			}
+		}
+	}
+
+	cout << dp[0];
+	return 0;
+}
+
 /*
 #include <iostream>
 #include <unordered_set>
