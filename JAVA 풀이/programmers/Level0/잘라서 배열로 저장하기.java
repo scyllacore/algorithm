@@ -1,3 +1,29 @@
+import java.util.*;
+
+class Solution {
+    public String[] solution(String my_str, int n) {
+        
+        Integer length = my_str.length();
+        Integer wordCount = length/n;
+        Integer start=0;
+        
+        List<String> result = new ArrayList<>();
+
+            
+        for(Integer i=0; i<wordCount; i++){
+            result.add(my_str.substring(start,start+n));
+            start+=n;
+        }
+        
+        if(start!=length){
+            result.add(my_str.substring(start));
+        }
+
+    return result.stream().toArray(String[]::new);
+    } 
+}
+
+/*
 class Solution {
     public String[] solution(String my_str, int n) {
         
@@ -28,3 +54,4 @@ class Solution {
     return result;    
     } 
 }
+*/
