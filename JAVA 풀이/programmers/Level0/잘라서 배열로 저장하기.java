@@ -19,7 +19,7 @@ class Solution {
             result.add(my_str.substring(start));
         }
 
-    return result.stream().toArray(String[]::new);
+    return result.toArray(String[]::new);
     } 
 }
 

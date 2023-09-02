@@ -1,5 +1,13 @@
 class Solution {
     public String solution(String bin1, String bin2) {
+        return Integer.toString(Integer.parseInt(bin1,2) + Integer.parseInt(bin2,2) , 2);
+    } 
+}
+
+
+/*
+class Solution {
+    public String solution(String bin1, String bin2) {
         int decimal = changeBinaryToDecimal(bin1) + changeBinaryToDecimal(bin2);
         
         if(decimal == 0) {
@@ -32,3 +40,4 @@ class Solution {
     }
     
 }
+ */

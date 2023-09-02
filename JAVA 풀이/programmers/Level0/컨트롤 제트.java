@@ -6,7 +6,7 @@ class Solution {
     public int solution(String s) {
         List<String> value = Arrays.stream(s.split(" ")).collect(Collectors.toList());
 
-        for(;value.indexOf("Z") != -1;){
+        for(;;){
             int idx = value.indexOf("Z");
 
             if(idx == -1){

@@ -17,6 +17,6 @@ class Solution {
             answer.add(n);
         }
 
-        return answer.stream().mapToInt(Integer::intValue).distinct().toArray();
+        return answer.stream().distinct().mapToInt(Integer::intValue).toArray();
     }
 }
