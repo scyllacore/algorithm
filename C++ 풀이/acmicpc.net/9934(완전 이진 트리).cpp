@@ -1,44 +1,52 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
+
 using namespace std;
 
-//1<=k<=10
-//2^k
-int input[10024];
-int k;
-vector<int> arr[10];
-void insertTree(int depth, int start, int end) {
+vector<vector<int>> binaryTree;
+vector<int> building;
 
-	if (start >= end) {
+void insertTree(int start, int end, int depth) {
+
+	if (start > end) {
 		return;
 	}
+
 	int mid = (start + end) / 2;
-	arr[depth].push_back(input[mid]);
-	insertTree(depth + 1, start, mid);
-	insertTree(depth + 1, mid + 1, end);
+
+	binaryTree[depth].push_back(building[mid]);
+
+	insertTree(start, mid - 1, depth + 1);
+	insertTree(mid + 1, end, depth + 1);
 
 }
 
 int main() {
+	cin.tie(NULL);
+	cout.tie(NULL);
 	ios::sync_with_stdio(false);
-	cin.tie(0);
-	cout.tie(0);
 
+	int k;
 	cin >> k;
 
+	binaryTree.assign(k, vector<int>(0));
 
 	int num;
-	int idx = 0;
-	while (cin >> num) {
-		input[idx++] = num;
+	for (; cin >> num;) {
+		building.push_back(num);
 	}
-	insertTree(0, 0, idx);
+
+	insertTree(0, building.size() - 1, 0);
+
 	for (int i = 0; i < k; i++) {
-		for (auto o : arr[i]) {
-			cout << o << ' ';
+		for (int j = 0; j < binaryTree[i].size(); j++) {
+			cout << binaryTree[i][j] << ' ';
 		}
 		cout << '\n';
 	}
+
+
 	return 0;
 }
 
