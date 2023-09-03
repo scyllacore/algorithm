@@ -13,7 +13,7 @@ int main() {
 	unsigned long long sum = 0;
 
 	for (int i = 1; i <= n; i++) {
-		sum += i * (n / i); // i´Â ¼ýÀÚ , n/i´Â ¼ýÀÚÀÇ °³¼ö
+		sum += i * (n / i); // iëŠ” ìˆ«ìž , n/iëŠ” ìˆ«ìžì˜ ê°œìˆ˜
 	}
 
 	cout << sum;
@@ -21,4 +21,4 @@ int main() {
 
 }
 //https://mine-it-record.tistory.com/523
-//Á÷Á¢ ºÐ¼® ÇØº¼ °Í
+//ì§ì ‘ ë¶„ì„ í•´ë³¼ ê²ƒ

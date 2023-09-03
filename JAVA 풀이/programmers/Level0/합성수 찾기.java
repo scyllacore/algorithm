@@ -4,9 +4,9 @@ class Solution {
     
     public void eratos(){
         
-        for(int i=2; i<=101/i; i++){
+        for(int i=2; i<=100/i; i++){
             if(prime[i] == false){
-                for(int j = i*i; j<=101; j+=i){
+                for(int j = i*i; j<=100; j+=i){
                     prime[j] = true;
                 }
             }
