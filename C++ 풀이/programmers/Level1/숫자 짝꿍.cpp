@@ -30,6 +30,7 @@ string solution(string X, string Y) {
 	for (int i = 9; i >= 1; i--) {
 		if (xNumberCnt[i] && yNumberCnt[i]) {
 			onlyZeroCheck = false;
+			break;
 		}
 	}
 
