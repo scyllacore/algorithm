@@ -1,34 +1,47 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 class Solution {
     public int solution(int[] array) {
-        Map<Integer, Integer> numberOf = new HashMap<>();
+       Arrays.sort(array);
 
-        for (int n : array) {
-            numberOf.put(n , numberOf.getOrDefault(n,0)+1);
-        }
+        Map<Integer, List<Integer>> numberOf = new HashMap<>();
 
-        int maxValue = 0;
-        int maxKey = 0;
+        int cnt = 0;
+        int start = 0;
+        int end;
 
-       for(Map.Entry<Integer,Integer> m : numberOf.entrySet()){
-           if(m.getValue() > maxValue){
-               maxValue = m.getValue();
-               maxKey = m.getKey();
-           }
-       }
-        numberOf.remove(maxKey);
+        for (end = 0; end < array.length; end++) {
+            if (array[end] != array[start]) {
+                List<Integer> list = numberOf.getOrDefault(end - start, new ArrayList<>());
+                list.add(array[start]);
+                numberOf.put(end - start, list);
 
-        for(Map.Entry<Integer,Integer> m : numberOf.entrySet()){
-            if(m.getValue() == maxValue ){ // && m.getKey() != maxKey
-                return -1;
+                start = end;
             }
         }
 
-        return maxKey;
+        List<Integer> list = numberOf.getOrDefault(end - start, new ArrayList<>());
+        list.add(array[start]);
+        numberOf.put(end - start, list);
+
+
+        int maxKey = 0;
+
+        for (Map.Entry<Integer, List<Integer>> m : numberOf.entrySet()) {
+            if (m.getKey() > maxKey) {
+                maxKey = m.getKey();
+            }
+        }
+
+
+        if (numberOf.get(maxKey).size() > 1) {
+           return -1;
+        }
+
+        return numberOf.get(maxKey).get(0);
     }
+    //중복되는 코드만 없애면 전보다 효율에서는 괜찮은 코드.
 }
 
 /*
