@@ -48,19 +48,15 @@ int main() {
 				moveCount++;
 				box.pop_back();
 			}
-			else if (box[idx] > crain[i] && idx >= 1) { // crainÀÌ boxÀÇ Á¦ÀÏ ¾Õ¿¡ ¹èÄ¡µÈ °æ¿ì, ÇØ´ç crainÀÌ Á¦ÀÏ ¾Õ À§Ä¡ÀÇ ¹Ú½º¸¦ ¿Å±æ ¼ö ÀÖ´ÂÁö °í·ÁÇØ¾ßÇÑ´Ù.
-				moveCount++;
-				box.erase(box.begin() + idx - 1);
-			}
-			else if (box[idx] <= crain[i]) {
+			else if (box[idx] == crain[i]) {
 				moveCount++;
 				box.erase(box.begin() + idx);
 			}
-
-			/*for (int j = 0; j < box.size(); j++) {
-				cout << box[j] << ' ';
+			else if (idx >= 1) {
+				moveCount++;
+				box.erase(box.begin() + idx - 1);
 			}
-			cout << '\n';*/
+
 		}
 
 		if (moveCount == 0) {
@@ -124,6 +120,7 @@ int main() {
 
 			cout << idx << '\n';
 
+			1.
 			if (idx >= crain.size()) {
 				crainSize--;
 				box.pop_back();
@@ -132,6 +129,25 @@ int main() {
 				crainSize--;
 				box.erase(box.begin() + idx);
 			}
+
+			2.
+			if (idx >= box.size()) {
+				moveCount++;
+				box.pop_back();
+			}
+			else if (box[idx] > crain[i] && idx >= 1) { // crainì´ boxì˜ ì œì¼ ì•ì— ë°°ì¹˜ëœ ê²½ìš°, í•´ë‹¹ crainì´ ì œì¼ ì• ìœ„ì¹˜ì˜ ë°•ìŠ¤ë¥¼ ì˜®ê¸¸ ìˆ˜ ìˆëŠ”ì§€ ê³ ë ¤í•´ì•¼í•œë‹¤.
+				moveCount++;
+				box.erase(box.begin() + idx - 1);
+			}
+			else if (box[idx] <= crain[i]) {
+				moveCount++;
+				box.erase(box.begin() + idx);
+			}
+
+			for (int j = 0; j < box.size(); j++) {
+				cout << box[j] << ' ';
+			}
+			cout << '\n';
 
 			for (int j = 0; j < box.size(); j++) {
 				cout << box[j] << ' ';
@@ -155,4 +171,3 @@ int main() {
 	return 0;
 }
 */
-
