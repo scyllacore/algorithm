@@ -1,9 +1,10 @@
-SELECT 
-FLOOR(PRICE/10000) * 10000 AS 'PRICE_GROUP',
-COUNT(*) AS 'PRODUCTS'
-FROM PRODUCT
-GROUP BY PRICE_GROUP
-ORDER BY PRICE_GROUP ASC
+SELECT FLOOR(price / 10000) * 10000 AS 'PRICE_GROUP',
+       COUNT(*)                     AS 'PRODUCTS'
+FROM   product
+GROUP  BY price_group
+ORDER  BY price_group ASC 
+
+# GROUP  BY에서 from의 테이블 있는 column이 아니고 select에 지정해둔 별칭값을 이용해 그룹핑할 때, select 처리 순서가 바뀌는 점을 유의해야한다.
 
 /*
 SELECT 

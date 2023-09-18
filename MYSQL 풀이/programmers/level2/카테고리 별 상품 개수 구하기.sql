@@ -1,9 +1,8 @@
-SELECT
-SUBSTR(PRODUCT_CODE,1,2) AS 'CATEGORY', # 시작이 0번째가 아닌 1번째 이다.
-COUNT(*) AS 'PRODUCTS'
-FROM PRODUCT
-GROUP BY CATEGORY
-ORDER BY CATEGORY
+SELECT SUBSTR(product_code, 1, 2) AS 'CATEGORY',
+       COUNT(*)                   AS 'PRODUCTS'
+FROM   product
+GROUP  BY category
+ORDER  BY category 
 
 # https://codingspooning.tistory.com/entry/MySQL-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%9E%90%EB%A5%B4%EA%B8%B0-SUBSTR-SUBSTRING
 

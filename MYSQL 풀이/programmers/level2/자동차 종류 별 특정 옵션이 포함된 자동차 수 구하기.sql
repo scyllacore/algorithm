@@ -1,5 +1,8 @@
-SELECT CAR_TYPE,COUNT(*) AS 'CARS' #GROUPING 하고 전체 출력을하면 제일 위에 있는 하나가 대표로 출력된다.
-FROM CAR_RENTAL_COMPANY_CAR
-WHERE OPTIONS LIKE '%통풍시트%' OR OPTIONS LIKE '%열선시트%' OR OPTIONS LIKE '%가죽시트%'
-GROUP BY CAR_TYPE
-ORDER BY CAR_TYPE ASC
+SELECT car_type,
+       COUNT(*) AS 'CARS'  #GROUPING 하고 전체 출력을하면 제일 위에 있는 하나가 대표로 출력된다.
+FROM   car_rental_company_car
+WHERE  options LIKE '%통풍시트%'
+        OR options LIKE '%열선시트%'
+        OR options LIKE '%가죽시트%'
+GROUP  BY car_type
+ORDER  BY car_type ASC 

@@ -1,6 +1,5 @@
-SELECT 
-ANIMAL_TYPE,
-IF(NAME IS NULL,'No name',NAME),
-SEX_UPON_INTAKE
-FROM ANIMAL_INS
-ORDER BY ANIMAL_ID ASC
+SELECT animal_type,
+       IF(name IS NULL, 'No name', name),
+       sex_upon_intake
+FROM   animal_ins
+ORDER  BY animal_id ASC 
