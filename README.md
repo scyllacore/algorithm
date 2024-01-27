@@ -1,4 +1,3 @@
-문제 풀이 정리
+정리본 pdf :
 
-<br></br>
-.
+https://drive.google.com/file/d/1p7GIRD0-pV-YtmwuWlLXLFaKB2f5832L/view?usp=sharing
