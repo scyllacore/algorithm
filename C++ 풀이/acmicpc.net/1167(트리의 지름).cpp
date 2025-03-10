@@ -39,7 +39,6 @@ void DFS(int parent, int disSum) {
 
 
 int main() {
-
 	cin.tie(NULL);
 	cout.tie(NULL);
 	ios::sync_with_stdio(false);

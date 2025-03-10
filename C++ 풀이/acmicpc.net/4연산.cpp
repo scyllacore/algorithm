@@ -11,10 +11,6 @@ struct numInfo {
 	string operStr;
 };
 
-bool isRangeNum(long long val) {
-	return val >= 1 && val <= MAX;
-}
-
 string bfs(int& s, int& t) {
 
 	if (s == t) {
@@ -26,6 +22,10 @@ string bfs(int& s, int& t) {
 
 	bfsQ.push({ s,"" });
 	visited.insert(s);
+
+	auto isRangeNum = [](long long val) -> bool {
+		return val >= 1 && val <= MAX;
+	};
 
 	for (; !bfsQ.empty();) {
 		long long curVal = bfsQ.front().num;

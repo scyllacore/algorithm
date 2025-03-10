@@ -13,6 +13,11 @@ int main() {
 	int n, k;
 	cin >> n >> k;
 
+	if(k < 5){
+		cout << 0;
+		return 0;
+	}
+
 	int* words = new int[n] {0};
 	string str;
 
